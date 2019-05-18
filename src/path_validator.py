@@ -20,7 +20,6 @@ class PathValidator(object):
 
     @staticmethod
     def is_valid_transition(wp_a, wp_b):
-        #change_or = (wp_b.orientation - wp_a.orientation + 4) % 4
         change_xy = (wp_b.x - wp_a.x, wp_b.y - wp_a.y)
 
         vertical = {
@@ -37,5 +36,4 @@ class PathValidator(object):
             3: [(-1, -1), (1, 1)]
         }
 
-        #return change_xy in (vertical[change_or] if wp_a.orientation % 2 == 0 else horizontal[change_or])
         return change_xy
