@@ -2,7 +2,6 @@ from waypoint import Waypoint
 import math
 import numpy as np
 
-
 class PathFinder(object):
 
     def get_path(self, grid, start_wp, end_wp):
