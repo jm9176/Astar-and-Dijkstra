@@ -1,13 +1,4 @@
 class Waypoint(object):
-    """Class to represent the position and orientation of Mary Anne.
-
-    Note about orientation. Orientation is an integer between 0 and 3 inclusive.
-        0 maps to the unit vector (0, 1)
-        1 maps to the unit vector (1, 0)
-        2 maps to the unit vector (0, -1)
-        3 maps to the unit vector (-1, 0)
-    An easy way to think about the orientation is that 0 is North, 1 is East, 2 is South, and 3 is West.
-    """
     def __init__(self, x, y):
         self._x = x
         self._y = y
