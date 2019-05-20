@@ -1,7 +1,7 @@
 # Astar-and-Dijkstra
 
-IMPORTANT: I received this file as a take-home assignment where I had to create the Path_finder.py file
+IMPORTANT: I received this file as a take-home assignment where I had to create the path_finder.py file
 
-To run the code: python2.7 challenge_1.py --viz
+To run the code: python2.7 challenge_1_test.py --viz
 
-uncomment the fScore fundtion in pathFinder.py to calculate for Dijkstra or A*
+uncomment the fScore fundtion in path_finder.py to calculate for Dijkstra or A*
