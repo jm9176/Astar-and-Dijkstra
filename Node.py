@@ -20,7 +20,10 @@ class Node(object):
         return not self.__eq__(other)
 
     def __str__(self):
-        return 'Node(%s, %s)' % (self._x, self._y)
+        return 'Node({}, {})'.format (self._x, self._y)
 
     def __repr__(self):
         return str(self)
+
+    def __hash__(self):
+        return hash((self._x, self._y))
