@@ -12,34 +12,31 @@ import numpy as np
 from Node import Node
 from chkNode import chk_Node
 from retrace_path import retrace_path
+import matplotlib.pyplot as plt
 
-    
+
 # Calculating heuristic using distance formula
 def distance(point_a, point_b):
-    return pow(pow(point_a.x - point_b.x,2)+pow(point_a.y - point_b.y,2),0.5)
+    return pow(pow(point_a.x - point_b.x, 2) + pow(point_a.y - point_b.y, 2), 0.5)
 
 
 # Calculating the shortest path
 def finding_path(grid, start, goal, n_r, n_c):
-
     # Initializing the closed and open list
     # dict_parent to store the previous (parent) node
     closed_list = []
     open_list = [start]
     dict_parent = {}
 
-
     # Initializing the g_cost and f_cost matrix
     g_cost = [[np.inf for i in range(n_c)] for j in range(n_r)]
     f_cost = [[np.inf for i in range(n_c)] for j in range(n_r)]
 
-
     # Initializing the g_cost for start = 0 and
     # f_cost = distance bewteen start and goal
-    # f_cost = g_cost[start] + distance(start, goal)
+    # f_cost = 0 # for dijkstra
     g_cost[start.x][start.y] = 0
     f_cost[start.x][start.y] = 0
-
 
     while open_list is not None:
 
@@ -51,48 +48,62 @@ def finding_path(grid, start, goal, n_r, n_c):
 
         for var in open_list:
             if f_cost[var.x][var.y] < curr_f_cost:
-                curr_f_cost = f_cost[var.x][var.y] 
+                curr_f_cost = f_cost[var.x][var.y]
                 curr_var = var
-
 
         # if goal is found, retrace the path
         if curr_var == goal:
+            print(dict_parent)
             return retrace_path(dict_parent, curr_var, start)
-            
+
         open_list.remove(curr_var)
         closed_list.append(curr_var)
 
-
         # Finding the neighbor nodes of the current selection
         edges = chk_Node(curr_var, grid, n_r, n_c)
-
 
         # Updating the g_cost and f_cost of the nodes
         # to find the shortest path
         for var in edges:
             if var in closed_list:
-                 continue
+                continue
 
             temp_g_cost = g_cost[curr_var.x][curr_var.y] + distance(curr_var, var)
 
             if var not in open_list:
                 open_list.append(var)
-                
+
             elif temp_g_cost >= g_cost[var.x][var.y]:
                 continue
-                
+
             dict_parent[var] = curr_var
+
             g_cost[var.x][var.y] = temp_g_cost
             f_cost[var.x][var.y] = g_cost[var.x][var.y]
 
 
 # Initialize the input grid, start and end goal
 # n_r, n_c represents the no. of rows and cols in a grid
-n_r, n_c = 4, 6         
-grid = [[0 for i in range(n_c)] for j in range(n_r)]
-start = Node(3,0)
-goal = Node(0,5)
+n_r, n_c = 20, 20
+grid = np.full([n_r,n_c], 0, dtype = float)
 
-print(finding_path(grid, start, goal, n_r, n_c))
+# Defining the obstacles
+grid[7:13, 7:13] = 1
+grid[2:4, 2:10] = 1
 
+for i in range(len(grid)):
+    for j in range(len(grid[0])):
+        if grid[i][j]==0:
+            plt.plot(i,j, color = 'azure', marker = 'o')
+        else:
+            plt.plot(i,j, color = 'red', marker = 'o')
 
+start = Node(0, 0)
+goal = Node(15, 15)
+
+final_list = finding_path(grid, start, goal, n_r, n_c)
+
+for var in final_list:
+    plt.plot(var.x, var.y, color='orange', marker='o')
+
+plt.show()
