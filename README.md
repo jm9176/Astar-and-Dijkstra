@@ -2,6 +2,9 @@
 
 Finding the shortest path between the start and the goal position using A* and Dijkstra algorithm
 
+![image](https://user-images.githubusercontent.com/50490953/58739661-80968200-83d9-11e9-8499-cf3180df163a.png)
+
+
 -------------------------------------------------------------------------------------------------------------------------------
 
 REFERENCES:
